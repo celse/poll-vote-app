@@ -1,0 +1,90 @@
+<html>
+	<head>
+		<title>First Node MVC App</title>
+		<link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" type="text/css">
+	   <link href="/public/css/main.css" rel="stylesheet" type="text/css">
+	   
+	   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	   <!-- script> 
+         $(function(){ $("#header").load("/public/header.html") });
+      </script -->
+	</head>
+	<body>
+    <nav class="navbar navbar-default navbar-static-top navbar-inverse">
+      <div class="container">
+        <ul class="nav navbar-nav">
+          <li >
+           <a href="/polls"><span class="glyphicon glyphicon-home"></span> Home</a>
+          </li>
+           
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-info-sign"></span> Getting Started Guides <span class="caret"></span></a>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right visite">
+        </ul>
+      </div>
+    </nav>
+    <div class="jumbotron text-center">
+      <div class="container">
+          <a href="/polls" class="lang-logo">
+              <img src="/public/img/celse-logo.png" />
+          </a>
+      </div>
+      <br>
+      <p class="clementine-text" id="dashbd">Select a poll to see the results and vote, or .<a class="menu" id="mypull" href="/login"> sign-in</a> to make a new poll</p>
+        
+    </div>
+        <!-- header>
+        <p>Welcome, <span id="display-name"></span>!</p>
+        <a class="menu" id="mypull" href="/profile">My Pulls</a>
+        <p>|</p>
+        <a class="menu" id="creatpull" href="/polls">Try again</a>
+      </header -->
+       
+    <div class="container">
+        
+      <div class="row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6">
+          <p class="clementine-text pull-text" id="your-profile">New Poll</p>
+          <hr>
+          <div  id="profile">
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                  <h3 class="panel-title" >Your profile : </h3>
+              </div>
+              <div class="panel-body">
+                <div>	
+                    <img src="/public/img/gh-mark-32px.png" alt="github logo" />
+                    <p><span>ID: </span><span id="profile-id" class="profile-value"></span></p>
+                    <p><span>Username: </span><span id="profile-username" class="profile-value"></span></p>
+                    <p><span>Display Name: </span><span id="display-name" class="profile-value"></span></p>
+                    <p><span>Repositories: </span><span id="profile-repos" class="profile-value"></span></p>
+                </div>
+                <div class="text-center">
+                    <a class="menu" href="/">Home</a>
+                    <p id="menu-divide">|</p>
+                    <a class="menu" href="/logout">Logout</a>
+                    <p id="menu-divide">|</p>
+                    <button class="btn btn-warning " id="edite">Edite</button>
+                  </div>
+                </div>
+              </div>
+              <button style="visibility: hidden " type="submit" class="btn btn-primary btn-lg btn-add">Submit data</button>
+          </div>
+          <div class="list-group " id="edit-profile">
+              
+          </div>
+     
+        </div>
+        <div class="col-sm-3"></div>
+      </div>
+    </div> 
+    <script type="text/javascript" src="/common/ajax-functions.js"></script>
+    <script type="text/javascript" src="/controllers/clickController.client.js"></script>
+    <script type="text/javascript" src="/controllers/userController.client.js"></script>
+	</body>
+</html>

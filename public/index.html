@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<title>First Node MVC App</title>
+		<link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" type="text/css">
+	  	<link href="/public/css/main.css" rel="stylesheet" type="text/css">
+	   	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	</head>
+
+	
+	<body>
+		<nav class="navbar navbar-default navbar-static-top navbar-inverse">
+        <div class="container">
+          <ul class="nav navbar-nav">
+             <li class="active">
+               <a href="/polls"><span class="glyphicon glyphicon-home"></span> Home</a>
+             </li>
+             
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-info-sign"></span> Getting Started Guides <span class="caret"></span></a>
+                
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right visite">
+            
+          
+          </ul>
+        </div>
+        
+      </nav>
+      <header>
+		<p>Welcome, <span id="display-name"></span>!</p>
+		<a class="menu" href="/profile">Profile</a>
+		<p>|</p>
+		<a class="menu" href="/logout">Logout</a>
+	</header>
+
+		<div class="container">
+			<img src="/public/img/clementine_150.png" />
+			<br />
+			<p class="clementine-text">Clementine.js</p>
+		</div>
+	
+		<div class="container">
+			<p>You have clicked the button <span id="click-nbr"></span> times.</p>
+			<br />
+			<div class="btn-container">
+				<button type="submit" class="btn btn-add">CLICK ME!</button>
+				<button class="btn btn-delete">RESET</button>
+			</div>
+			<form  id="myForm">
+			<div class="form-group row">
+						<div class="col-sm-12">
+							<input type="checkbox" name="checkboxes[249]" id="frm-test-elm-110-3" autocomplete="off" />
+					        <div class="btn-group">
+					            <label for="frm-test-elm-110-3" class="btn btn-info">
+					                <span class="fa fa-check-square-o fa-lg"></span>
+					                <span class="fa fa-square-o fa-lg"></span>
+					                <span class="content">Lorem ipsum dolor sit amet.</span>
+					            </label>
+					        </div>
+						</div>
+					</div>
+
+            		<div class="form-group row">
+						<div class="col-sm-12">
+							<input type="checkbox" name="checkboxes[249]" id="frm-test-elm-110-4" autocomplete="off" checked />
+					        <div class="btn-group">
+					            <label for="frm-test-elm-110-4" class="btn btn-warning">
+					                <span class="fa fa-check-square-o fa-lg"></span>
+					                <span class="fa fa-square-o fa-lg"></span>
+					                <span class="content">Lorem ipsum dolor sit amet.</span>
+					            </label>
+					        </div>
+						</div>
+					</div>
+					
+					</form>
+
+		</div>
+		
+		<script type="text/javascript" src="common/ajax-functions.js"></script>
+		<script type="text/javascript" src="controllers/clickController.client.js"></script>
+		<script type="text/javascript" src="controllers/userController.client.js"></script>
+	</body>
+
+</html>

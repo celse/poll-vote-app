@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>First Node MVC App</title>
+		<link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" type="text/css">
+	   <link href="/public/css/main.css" rel="stylesheet" type="text/css">
+	   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	   
+	</head>
+	<body>
+	   <nav class="navbar navbar-default navbar-static-top navbar-inverse">
+	        <div class="container">
+	          <ul class="nav navbar-nav">
+	             <li>
+	               <a href="/polls"><span class="glyphicon glyphicon-home"></span> Home</a>
+	             </li>
+	             
+	            <li class="dropdown">
+	              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-info-sign"></span> Getting Started Guides <span class="caret"></span></a>
+	                
+	            </li>
+	          </ul>
+	          <ul class="nav navbar-nav navbar-right visite">
+	          </ul>
+	        </div>
+        </nav>
+		<div class="jumbotron text-center">
+		  <div class="container">
+		    <a href="/" class="lang-logo">
+		      <img src="/public/img/celse-logo.png" />
+		    </a>
+		  </div>
+		    <br>
+		    
+		    <p class="clementine-text">POLLS VOTING</p>
+		    
+		</div>
+
+	   <div class="container">	
+      	<div class="login">
+      		<!-- img src="/public/img/clementine_150.png" / -->
+      		<div class="row">
+      			<div class="col-sm-3"></div>
+	      		<div class="col-sm-6">
+					      			<!-- LOGIN FORM -->
+					      			<br />
+		      		<p class="med-text">Sign Up Now</p>
+		      		
+				    <form action="/auth/signup" method="post">
+				        <div class="form-group">
+				            <label>Name</label>
+				            <input type="text" placeholder="Enter Name" class="form-control" name="name">
+				        </div>
+				        <div class="form-group">
+				            <label>Email</label>
+				            <input type="text" placeholder="Enter email" class="form-control" name="email">
+				        </div>
+				        <div class="form-group">
+				            <label>Password</label>
+				            <input type="password" placeholder="Enter Password" class="form-control" name="password">
+				        </div>
+				
+				        <button type="submit" class="btn btn-warning signup-btn">Sign Up Now</button>
+				    </form>
+	      		
+		      		<div>
+			      		<hr>
+						<br>
+						<p class="med-text">Need an login ? <a href="/login">Login </a> Or go <a href="/">home</a>.</p>
+			      	</div>
+			    </div>
+		      	<div class="col-sm-3"></div>
+	      	</div>
+      	</div>
+      </div>
+
+      <script type="text/javascript" src="common/ajax-functions.js"></script>
+      <!-- script type="text/javascript" src="controllers/clickController.client.js"></script -->
+      <script type="text/javascript" src="controllers/userController.client.js"></script>
+		
+	</body>
+</html>
