@@ -8,8 +8,6 @@ function ClickHandler () {
 	    return string.charAt(0).toUpperCase() + string.slice(1);
 	}
 	function restoreback(doc){
-		console.log('DATA RECUP :'+doc.key)
-		//{'req':req,'res':res, 'data':data, 'key_gen':key_gen}
 		var pollData = doc.data,
 			req = doc.req,
 			res = doc.res,
@@ -28,7 +26,6 @@ function ClickHandler () {
 	                    });
 	                poll.save((err, poll)=>{
 	                    if(err){ throw err}
-	                    console.log('### Result ###');
 	                    updateUserPolls(req.user._id, poll)
 	                    res.json(poll);
 	                    
@@ -36,8 +33,6 @@ function ClickHandler () {
 	                
 				}else{
 					var list_poll_id=[];
-					console.log('### Error  ### ');
-					
 					res.json({'erro':'this the is already existed, please try with an other theme'})
 				}
 				
@@ -66,8 +61,6 @@ function ClickHandler () {
 			    	for(var i=0; i < polls_id.length; i++){
 						list_poll_id.push(polls_id[i]['id'])
 					}
-					console.log('@@@@@@@@@ B @@@@@@@@')	
-					console.log( list_poll_id)
 					while(searchKey(key_gen, list_poll_id)){
 		                key_gen = stringGen();
 		            }
@@ -119,8 +112,6 @@ function ClickHandler () {
 
 				if (result) {
 					if (result['local'].email){
-				        console.log('result["polls"]')
-				        console.log(result)
 				        result['local']["polls"].push(pollId);
 				        result.save((err, result)=>{
                             if(err){ throw err}
@@ -152,15 +143,12 @@ function ClickHandler () {
                 allPolls.forEach(function(element){
                     if(element.theme != undefined ){data_elemt.push(element.theme);}
                 })
-                console.log('### DATA LIST OF THEME II ######');
-                //console.log(allPolls)
+                
                 data_db['theme'] = allPolls 
                 res.json(data_db);
 			});
     }
 	this.dataInfo = function(req, res){
-		console.log('###### info data  #####')
-		console.log('chach data : ',dataCash.pull_id);
 		var info_data = {};
 		if(dataCash.pull_id != ''){
 			info_data['cach'] = dataCash.pull_id
@@ -202,8 +190,6 @@ function ClickHandler () {
 		
 	}
 	this.dataPoll = function(req, res){
-		console.log('###### poll data  #####')
-		console.log(req)
 		Users
 			.find({})
 			.exec(function (err, result) {
@@ -214,8 +200,6 @@ function ClickHandler () {
 			);
 	};
 	this.userPolls = function(req, res){
-		console.log('###### poll data  B #####')
-		console.log('req.user' +req.user)
 		if(req.user){
 			Polls
 	            .find({'created_by':req.user._id},{'_id':false, 'created_by':false, 'option':false, '__v':false})
@@ -226,8 +210,6 @@ function ClickHandler () {
 	                allPolls.forEach(function(element){
 	                    if(element.theme != undefined ){data_elemt.push(element.theme);}
 	                })
-	                console.log('### DATA LIST OF THEME ######');
-	                console.log(allPolls)
 	                data_db['userData'] = recup_User(req.user);
 	                data_db['theme'] = data_elemt;
 	                
@@ -260,7 +242,6 @@ function ClickHandler () {
 			);
 	};
 	this.login_pg = function(req, res){
-		//console.log(req)	
 		res.json({'id_user':'dsfdsf'});
 	}
 	this.resetClicks = function (req, res) {
@@ -274,9 +255,7 @@ function ClickHandler () {
 			);
 	};
 	this.createPoll= function(req, res){
-		console.log('###### poll posted  #####')
-		console.log(req.params.id)
-		console.log(req.originalUrl)
+		
 		dataCash.pull_id = '';
 		var dat_list = req.originalUrl.split('/api/newpoll/')[1].split('-&')
 		var V_theme = dat_list[0].split('%20').join(' ');
@@ -304,7 +283,6 @@ function ClickHandler () {
 	};
 	this.updateUser = function(req, res){
 		var params  = req.originalUrl.split('/api/profile/')[1].split('-&')
-		console.log(params)
 		
 		//UPDATE USER 
 		if(req.user._id != undefined){
@@ -336,26 +314,19 @@ function ClickHandler () {
 		}
 		
 	};
-	/*this.newpoll_posts = function(req, res){
-		console.log('### new poll posted ###');
-		console.log(req.body);
-	};*/
+
 	this.getClicks_poll = function(req, res){
-		console.log('### new poll posted ###');
 		dataCash.pull_id = req.params.id;
-		console.log(req.body);
 	};
 	this.pollDelet = function(req, res){
-		console.log('### poll Delele ###');
 		dataCash.pull_id='';
-		console.log('params : '+req.params.id);
-		console.log('params : '+req.user._id);
+		
 		if (req.user._id != undefined){
 			Polls
 				.deleteMany({'created_by': req.user._id,'id':req.params.id.split('-')})
 				.exec(function(err, allPolls){
 					if(err){ throw err}
-					//console.log(allPolls)
+					
 					getpolls(req, res);
 				});
 		}else{
@@ -379,9 +350,7 @@ function ClickHandler () {
 	}
 	
 	this.getpoll = function(req, res){
-		console.log('### poll get ###');
-		console.log('params : '+req.params.id);
-		console.log('Cach : '+dataCash.pull_id);
+		
 		var poll_v = '';
 		if(req.params.id == 'load'){
 			if(dataCash.pull_id != ''){
@@ -392,11 +361,10 @@ function ClickHandler () {
 				poll_v = req.params.id
 			}
 		}
-		console.log(poll_v);
 		
 		var data_db ={}, projection = {'id': poll_v}, cond ={'_id':false, 'created_by':false,  '__v':false} ;
 		if(req.user  != undefined){
-			console.log('req user '+ req.user)
+			
 			projection ={'id': poll_v, 'created_by':req.user._id}
 			cond ={'_id':false, 'created_by':false,  '__v':false};
 			cond
@@ -406,14 +374,11 @@ function ClickHandler () {
     			req.connection.remoteAddress || 
 			     req.socket.remoteAddress ||
 			     req.connection.socket.remoteAddress;
-    	console.log(ip);
-    	
 		Polls
             .find(projection,cond)
 		    .exec(function(err, allPolls){
                 if (err) { throw err; }
-                console.log('######################')
-                //console.log(allPolls[0].ip_vote)
+                
                 if(allPolls[0].ip_vote != undefined && searchKey(ip,allPolls[0].ip_vote)){
                 	data_db['ip']=true;
                 }
@@ -428,13 +393,11 @@ function ClickHandler () {
     			req.connection.remoteAddress || 
 			     req.socket.remoteAddress ||
 			     req.connection.socket.remoteAddress;
-    	console.log(ip);
-		//console.log(req.user)
+    	
 		if(req.user  != undefined){
 			projection ={ 'created_by':req.user._id}
 			cond ={'_id':false, 'created_by':false,  '__v':false}
 			data_db['userData'] = recup_User(req.user);
-			console.log(data_db)
 		};
 		Polls
             .find(projection,cond)
@@ -444,9 +407,7 @@ function ClickHandler () {
                 allPolls.forEach(function(element){
                     if(element.theme != undefined ){data_elemt.push(element.theme);}
                 })
-                console.log('### DATA LIST OF THEME I ######');
-                //keyGenerator()
-                console.log(data_db)
+                
                 data_db['theme'] = allPolls 
                 res.json(data_db);
 			});

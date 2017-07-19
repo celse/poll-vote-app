@@ -101,7 +101,6 @@ module.exports = function (app, passport) {
 		.get(function (req, res) {
 			
 			clickHandler.getpoll(req, res);
-			//res.json(req.user.github);
 		})	
 		.post(clickHandler.postPoll)
 		.delete(isLoggedIn, clickHandler.pollDelet);
@@ -111,11 +110,7 @@ module.exports = function (app, passport) {
 	app.route('/api/:id')
 		.get(isLoggedIn, function (req, res) {
 			clickHandler.userPolls(req, res);
-			//res.json(req.user.github);
 		});
-		
-	
-		
 	
 	app.route('/auth/github')
 		.get(passport.authenticate('github'));
@@ -137,12 +132,9 @@ module.exports = function (app, passport) {
 			successRedirect: '/polls',
 			failureRedirect: '/login'
 		}));
-	
 		
 	app.route('/api/:id/clicks')
 		.get(isLoggedIn, clickHandler.getClicks)
 		.post(isLoggedIn, clickHandler.addClick)
 		.delete(isLoggedIn, clickHandler.resetClicks);
 };
-//https://stackoverflow.com/questions/24096546/mongoose-populate-vs-object-nesting?answertab=votes#tab-top
-//https://stackoverflow.com/questions/13026486/how-to-populate-a-sub-document-in-mongoose-after-creating-it

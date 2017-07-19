@@ -18,7 +18,6 @@ var ajaxFunctions = {
 
       xmlhttp.onreadystatechange = function () {
          if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
-            //console.log(xmlhttp.response)
             callback(xmlhttp.response);
          }
       };
@@ -28,7 +27,6 @@ var ajaxFunctions = {
    }
 };
 function myLogout(navbarRight,url){
-      console.log('url: '+url)
       var  page_attive ='';
       if (url != undefined){
          page_attive = url.split('/api/')[url.split('/api/').length-1]
@@ -75,6 +73,7 @@ function myLogout(navbarRight,url){
    }
       
 function setMesgShare(element, path, id){
+   //console.log('je suis la')
    var p = document.createElement("p"),
       txt_c = document.createTextNode('Congratulations!'),
       br = document.createElement("br"),
@@ -82,10 +81,9 @@ function setMesgShare(element, path, id){
       txt_h = document.createTextNode('Your poll has been posted to'),
       link = document.createElement("a"),
       url = path+'/polls/'+id,
-      linkText = document.createTextNode(url)
-      ;
-      p.setAttribute('class','pull-text')
-       p.setAttribute('class','clementine-text')
+      linkText = document.createTextNode(url);
+      p.setAttribute('class','pull-text');
+      p.setAttribute('class','clementine-text');
       p.appendChild(txt_c);
       //h3.setAttribute('class', 'clementine-text')
       
@@ -104,14 +102,10 @@ function btn_input_option(btn, action ,urls, funct_back){
    var url_org =  urls;
    
    var listInput = document.getElementsByTagName('input')
-   console.log(listInput.length)
    var url = urls
       
-   console.log('############ URL  ###########')
-   console.log(url)
    for(var i= 0; i < listInput.length; i++){
       if(listInput[i].value != ''){
-         console.log(listInput[i].value);
          if(i == 0){
             url += listInput[i].value;
          }else{
@@ -129,15 +123,9 @@ function btn_input_action(btn, action ,urls, funct_back){
    btn.addEventListener('click', function(){
       //var url_org = urls;
       var listInput = document.getElementsByTagName('input')
-      console.log(listInput.length)
-      
-         
-      console.log('############ URL  ###########')
-      console.log(url)
       if (action == 'DELETE'){
          for(var i= 0; i < listInput.length; i++){
             if(listInput[i].checked){
-               console.log(listInput[i].getAttribute('id'));
                if(i == 0){
                   url += listInput[i].getAttribute('id');
                }else{
@@ -154,7 +142,6 @@ function btn_input_action(btn, action ,urls, funct_back){
       }else{
          for(var i= 0; i < listInput.length; i++){
             if(listInput[i].checked){
-               console.log(listInput[i].getAttribute('id'));
                url += this.getAttribute('id')+'-'+listInput[i].getAttribute('id');
               
             }
@@ -166,12 +153,10 @@ function btn_input_action(btn, action ,urls, funct_back){
    });
 }
 function updateback(data){
-   console.log(data)
-   
    document.querySelector('#upfste-field').remove();
    document.querySelector('#profile-username').innerHTML = JSON.parse(data).username; 
    document.querySelector('#display-name').innerHTML = JSON.parse(data).displayName;
-   document.querySelector('#dprofile-repos').innerHTML = JSON.parse(data).publicRepos;
+   document.querySelector('#profile-repos').innerHTML = JSON.parse(data).publicRepos;
    
 }
 function themeOptionUI(element, parent, funt,verif){
@@ -190,16 +175,12 @@ function themeOptionUI(element, parent, funt,verif){
       
       var url = appUrl + '/api/polls/'
       btn_input_action(btn,'POST',url,funt)
-      
-      
-      
-      
       divradio.setAttribute('class','funkyradio');
      
       title.setAttribute('class','clementine-text pull-text');
       title.appendChild(theme);
       form.appendChild(title);
-      console.log(element['option']);
+      //console.log(element['option']);
       for(var i = 0; i < element['option'].length; i++){
          var div = document.createElement("div"),
             input = document.createElement("input"),
@@ -253,7 +234,6 @@ function profileEdit (div_parent,data){
    btn.setAttribute('class', 'btn btn-primary btn-lg btn-profile');
    btn.setAttribute('type','submit');
    btn.appendChild(txt_bt)
-   console.log(data)
    if(data.username != undefined){
       var input = document.createElement("input"),
          h4 = document.createElement("h4"),
@@ -289,35 +269,31 @@ function profileEdit (div_parent,data){
       div_group.appendChild(h4);
       div_group.appendChild(input);
    }
-    div_group.appendChild(hr);
-    btn.addEventListener('click', function(){
+   div_group.appendChild(hr);
+   btn.addEventListener('click', function(){
       //var url_org = urls;
-    var prt = document.getElementById('edit-profile');
-    var listInput = document.getElementsByTagName('input'),
+   var prt = document.getElementById('edit-profile');
+   var listInput = document.getElementsByTagName('input'),
         h4 = document.createElement('h4');
     
-    console.log(listInput.length);
-    var test= true, fild_act = [];
+   var test= true, fild_act = [];
       for(var i= 0; i < listInput.length; i++){
          if(listInput[i].value == ''){
             listInput[i].focus();
             break;
          }else{
             if(listInput[i].getAttribute('id') == 'username'){
-                var p = document.querySelector('#profile-username');
-               
-                console.log(listInput[i].value)
-                console.log(p.innerHTML)
-                if(listInput[i].value != p.innerHTML){
+               var p = document.querySelector('#profile-username');
+               if(listInput[i].value != p.innerHTML){
                   test = false;
                   fild_act.push(listInput[i].getAttribute('id')+'-'+listInput[i].value);
-                }  
+               }  
             }
             if(listInput[i].getAttribute('id') == 'displayName'){
-                if(listInput[i].value != document.querySelector('#display-name').innerHTML){
+               if(listInput[i].value != document.querySelector('#display-name').innerHTML){
                   test = false;
                   fild_act.push(listInput[i].getAttribute('id')+'-'+listInput[i].value);
-                }  
+               }  
             }
             if(listInput[i].getAttribute('id') == 'password'){
                test = false
@@ -328,7 +304,6 @@ function profileEdit (div_parent,data){
       }
       if(test != true ){
          if(fild_act.length != 0){
-            console.log(fild_act);
             var params = ''
             for(var i= 0; i < fild_act.length; i++){
                
@@ -342,7 +317,6 @@ function profileEdit (div_parent,data){
                var user_id = document.getElementById('profile-id').innerHTML;
                user_id.concat(params);
                var url = 'api/profile/'+params;
-               console.log(params);
                ajaxFunctions.ajaxRequest('POST', url, updateback);
             }
             
@@ -356,50 +330,19 @@ function profileEdit (div_parent,data){
          prt.insertBefore(h4, prt.childNodes[0])
       }
       
-      /*   
-      console.log('############ URL  ###########')
-      if (action == 'DELETE'){
-      for(var i= 0; i < listInput.length; i++){
-         if(listInput[i].checked){
-            console.log(listInput[i].getAttribute('id'));
-            if(i == 0){
-               url += listInput[i].getAttribute('id');
-            }else{
-               url += '-'+listInput[i].getAttribute('id');
-            }
-            
-           
-         }
-      }
-         if(url != url_org){
-            ajaxFunctions.ajaxRequest('DELETE', url, function () {
-               ajaxFunctions.ajaxRequest('GET', url_org, funct_back);
-            });
-         }
-            
-      }else{
-         for(var i= 0; i < listInput.length; i++){
-            if(listInput[i].checked){
-               console.log(listInput[i].getAttribute('id'));
-               url += this.getAttribute('id')+'-'+listInput[i].getAttribute('id');
-              
-            }
-         }
-         if(url != url_org){
-             ajaxFunctions.ready(ajaxFunctions.ajaxRequest(action, url, funct_back));
-         }
-        
-      }*/
-      
-        
    });
    div_group.appendChild(btn)
    div_parent.appendChild(div_group)
 }
 function myLogin(navbarRight, namew, url){
    
-   var  page_attive = url.split('/api/')[url.split('/api/').length-1]
+   //console.log(url)
+   var page_attive=''
    
+   if (url != undefined){
+      page_attive = url.split('/api/')[url.split('/api/').length-1]
+   
+   }
    
    var li_c = document.createElement("li"),
       newLink_c = document.createElement("a"),
@@ -409,7 +352,6 @@ function myLogin(navbarRight, namew, url){
       
       
       if (page_attive == 'profile'){
-         //document.getElementsByClassName('active')[0].removeClass("active");
          li_c.setAttribute('class','profile active');
       }else{
          li_c.setAttribute('class','profile');   

@@ -3,45 +3,31 @@
 (function () {
 
    var profileId = document.querySelector('#profile-id') || null;
-   
    var pullForm = document.getElementById('pull-form') || null;
    var profileUsername = document.querySelector('#profile-username') || null;
-   //var profileRepos = document.querySelector('#profile-repos') || null;
    var displayName = document.querySelector('#display-name');
    var profileRepos = document.querySelector('#profile-repos') || null;
    
    var loginBtn = document.querySelector('#login-btn')|| null;
-   var addButton = document.querySelector('#create-theme')|| null;
    var voteButton = document.querySelector('.btn-vote')|| null;
-   //page class
    var signupBtn = document.querySelector('.signup-btn')|| null;
    var navbarRight = document.querySelector('.visite') || null;
    var listTheme = document.getElementById('list-theme')|| null;
    var profile = document.getElementById('profile')|| null;
    var profile_title = document.getElementById('your-profile')|| null;
-   var btn_profil = document.getElementById('btn-profile')|| null;
-   var profile_Edit = document.getElementById('edit-profile')|| null;
-   
-   if (btn_profil !== null) {
-      console.log(btn_profil)  
-   }
    
    if (profileId !== null) {
       var profile_data = {};   
    }
    
-   //console.log(id_info)id="profile" btn-profile
-   //btn-profile
    var apiUrl = appUrl + '/api/:id';
    var apiUrllog = appUrl + '/api/login';
-   var apiUrlinfo = appUrl + '/api/info';
+   
    var apiUrl_init = appUrl + '/api/polls';
    var apiUrl_poll_id = appUrl + '/api/polls/load';
-   var apiUrl_vote = appUrl + '/api/vote';
-   var apiUrl_newpull = appUrl + '/api/newpoll';
    
    
-  function mychart(doc){
+   function mychart(doc){
      //set callback
       google.setOnLoadCallback (createChart(doc));
 
@@ -61,7 +47,6 @@
          for(var i =0; i < doc['option'].length; i++){
             row_of_data.push([doc['option'][i]['label'],doc['option'][i]['vote']])
          }
-         console.log(row_of_data)
          dataTable.addRows(row_of_data);
          
          
@@ -135,7 +120,7 @@
          
          newLink.appendChild(btn);
          p.appendChild(txt);
-         console.log(parent);
+         
          parent.appendChild(hr);
          parent.appendChild(p);
          parent.appendChild(newLink);
@@ -153,8 +138,6 @@
       return byName;
    }
    function updateListThemeUser(listOfTheme){
-         
-         
       if(listOfTheme.length == 0){
          btnLink(document.querySelector('#list-theme'),'Need to Create new theme', 'newpoll' );
       }else{
@@ -164,48 +147,52 @@
    	   div_frb_group.setAttribute('id','user_theme');
    		
    		for(var i = 0; i < listOfTheme.length; i++){
-   	      	var doc_theme = listOfTheme[i],
-   	      	div_frb = document.createElement("div");
-   	      	div_frb.setAttribute('class','frb frb-success');
-   	      	var div2 = document.createElement("div");
-   	      	div2.setAttribute('class','text-center');
-   	      	div2.setAttribute('id','btn_to_delet');
-   	      	
-   	      	
-   	      	var input = document.createElement("input");
-   	      	input.setAttribute('type','checkbox');
-   	      	input.setAttribute('id',doc_theme.id);
-   	      	input.setAttribute('name','checkbox');
-   	      	input.setAttribute('value',[i]);
-   	      	//input.setAttribute('name','frb-group');
-   	      	
-   	      	var label = document.createElement("label");
-   	      	label.setAttribute('for',doc_theme.id);
-   	      	
-   	      	
-   	      	
-   	      	var span = document.createElement("span"),
-   	      	txt_span = document.createTextNode(doc_theme.theme);
-   	      	span.setAttribute('class','frb-title');
-   	      	span.appendChild(txt_span);
-   	      	
-   	      	label.appendChild(span)
-   	      	var str = 'Option:',
-   	      	   option = doc_theme.option;
-   	      	for(var x = 0; x < option.length; x++){
-   	      	   str += ' '+option[x]['label']+' = '+option[x]['vote'];
-   	      	}
-   	      	var span2 = document.createElement("span"),
-   	      	txt_span2 = document.createTextNode(str);
-   	      	span2.setAttribute('class','frb-description');
-   	      	span2.appendChild(txt_span2);
-   	      	
-   	      	label.appendChild(span2)
-   	      	div_frb.appendChild(input)
-   	      	div_frb.appendChild(label);
-   	      	
-   	      	div_frb_group.appendChild(div_frb);
-   	      	listTheme.appendChild(div_frb_group);
+	      	var doc_theme = listOfTheme[i],
+	      	div_frb = document.createElement("div");
+	      	div_frb.setAttribute('class','frb frb-success');
+	      	var div2 = document.createElement("div");
+	      	div2.setAttribute('class','text-center');
+	      	div2.setAttribute('id','btn_to_delet');
+	      	
+	      	var input = document.createElement("input");
+	      	input.setAttribute('type','checkbox');
+	      	input.setAttribute('id',doc_theme.id);
+	      	input.setAttribute('name','checkbox');
+	      	input.setAttribute('value',[i]);
+	      	//input.setAttribute('name','frb-group');
+	      	
+	      	var label = document.createElement("label");
+	      	label.setAttribute('for',doc_theme.id);
+	      	
+	      	
+	      	
+	      	var span = document.createElement("span"),
+	      	txt_span = document.createTextNode(doc_theme.theme);
+	      	span.setAttribute('class','frb-title');
+	      	span.appendChild(txt_span);
+	      	var span_vote = document.createElement("span"),
+	      	txt_span_vote = document.createTextNode('vote: '+doc_theme.ip_vote.length);
+	      	span_vote.setAttribute('class','frb-title');
+	      	span_vote.appendChild(txt_span_vote);
+	      	
+	      	label.appendChild(span)
+	      	label.appendChild(span_vote)
+	      	var str = 'Option:',
+	      	   option = doc_theme.option;
+	      	for(var x = 0; x < option.length; x++){
+	      	   str += ' '+option[x]['label']+' = '+option[x]['vote'];
+	      	}
+	      	var span2 = document.createElement("span"),
+	      	txt_span2 = document.createTextNode(str);
+	      	span2.setAttribute('class','frb-description');
+	      	span2.appendChild(txt_span2);
+	      	
+	      	label.appendChild(span2)
+	      	div_frb.appendChild(input)
+	      	div_frb.appendChild(label);
+	      	
+	      	div_frb_group.appendChild(div_frb);
+	      	listTheme.appendChild(div_frb_group);
           }
          var btn = document.createElement("button"),
          txt_btn = document.createTextNode('Remove');
@@ -218,7 +205,6 @@
       }
    }
    function delete_poll(data){
-      console.log(data);
       var userObject =JSON.parse(data);
       document.getElementById('user_theme').remove();
       document.getElementById('btn_to_delet').remove();
@@ -231,43 +217,27 @@
       }else{
          listOfTheme.sort();
    		for(var i = 0; i < listOfTheme.length; i++){
-   	      	//console.log('####  ##### '+ i);
-   	      	var link = document.createElement("a");
-   	      		
-   	      	 link.setAttribute('href',  '/polls/'+listOfTheme[i].id);
-   	      	 link.setAttribute('class', 'theme-item list-group-item');
-   	      	 link.innerHTML = listOfTheme[i].theme;
-   	      	 
-   	      	 /*button.setAttribute('id',  listOfTheme[i].id);
-   	      	 button.setAttribute('class', 'theme-item list-group-item');
-   	      	 button.innerHTML = listOfTheme[i].theme;
-   	      	 button.addEventListener('click', function(){
-   	      	   var url =  appUrl + '/api/polls/'+this.getAttribute('id');
-   	      	   ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', url, pollSelect));*/
-                  
-               
-               /*
-               var myUrl = appUrl + '/api/newpoll/data'
-               */
-   	      	listTheme.appendChild(link);
+	      	var link = document.createElement("a");
+	      		
+	      	link.setAttribute('href',  '/polls/'+listOfTheme[i].id);
+	      	link.setAttribute('class', 'theme-item list-group-item');
+	      	link.innerHTML = listOfTheme[i].theme;
+	      	
+	      	listTheme.appendChild(link);
           }
    	}
     }
     
    function pollchart(data_Post){
-      console.log('### poll Post ##');
-      console.log(JSON.parse(data_Post))
+      
       var data = JSON.parse(data_Post)
       document.getElementById('pull-form').remove();
       
       mychart(data);
    }
    function setMenu(userObject, url){
-      //console.log(userObject['userData'])
-      
       document.getElementById("dashbd").innerHTML= "What would you like to do today ?"
       var head = document.getElementsByClassName("jumbotron text-center");
-      console.log(head[0])
       btnLink_simple(head[0],'New poll', 'newpoll' );
       btnLink_simple(head[0],'My polls', 'polls' );
       
@@ -279,57 +249,42 @@
       
    };
    function updateHtmlElement (data, element, userProperty, url) {
-      console.log('data '+data)
-      console.log(data.username)
       if(data.username != undefined){
          if(navbarRight != null){
-            
             myLogin(navbarRight,data.username,url)
          }
       }else{
          if(navbarRight != null){
-            
             myLogout(navbarRight)
          }
       }
-       if (element != null) {
+      if (element != null) {
          element.innerHTML = data[userProperty];
       }
-      
    };
+   
    function pollSelect(data){
-      console.log('### newpoll ##');
-      console.log(data);
-      //document.getElementById('list-theme').remove();
       var userObject = JSON.parse(data)
       if(userObject['userData'] != undefined){
          setMenu(userObject['userData'])
       }else{
          myLogout(navbarRight);
       }
-      /*if(pullForm != null){
-         console.log(pullForm);
-         themeOptionUI(JSON.parse(data), pullForm, pollchart)
-      }*/
+      
       if(userObject['theme'].length != 0){
          if (userObject['ip'] != undefined){
             themeOptionUI(userObject['theme'][0], pullForm, pollchart,true);
-            console.log('je suis ici ossi')
+            //console.log('je suis ici ossi')
          }else{
             themeOptionUI(userObject['theme'][0], pullForm, pollchart);} 
          }
-      
-      
    };
    
    function userProfil(data, url){
-      console.log('### newpoll ##');
-      console.log(data);
-      //document.getElementById('list-theme').remove();
       var userObject = JSON.parse(data)
       profile_data = userObject['userData']
+      
       if(userObject['userData'] != undefined){
-         
          setMenu(userObject['userData'],url)
          if (profileId !== null) {
             profileId.innerHTML = userObject['userData']['id'];   
@@ -342,6 +297,7 @@
          if (profileRepos !== null) {
             profileRepos.innerHTML = userObject['userData']['publicRepos'];   
          }
+      
          if (profile_title != null) {
             profile_title.innerHTML = userObject['userData']['displayName'];   
          }
@@ -350,9 +306,6 @@
       }
       
    };
-   //if()
-   
-   
    
    if(loginBtn != null || signupBtn != null){
       ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrllog, function(data){
@@ -369,49 +322,41 @@
          //Gernerated liste of theme
          var inti_load_url = apiUrl_init;
          ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', inti_load_url, function(data_db){
-            console.log('Poste DATA '+inti_load_url);
-            console.log(data_db);
+            
             var userObject = JSON.parse(data_db);
+            
             if(userObject['userData'] != undefined){
-               console.log('##### A #######');
                setMenu(userObject['userData'],inti_load_url)
                updateListThemeUser(sortArray(userObject['theme']));
             }else{
                myLogout(navbarRight,inti_load_url);
-               console.log('##### B #######');
+               
                if(userObject['theme'] != undefined ){
          			updateListTheme(userObject['theme']);
          		}
             }
-            
-     
-      		
          }));
       }else if(voteButton != null){
-      		loadChart(userObject['vote']);
+      	loadChart(userObject['vote']);
       }else if(profile != null){
          //Gernerated liste of theme
          var url = appUrl + '/api/profile' 
-          console.log('url '+url)
+         
          ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', url, function(data){
             userProfil(data,url)
          } ));
       }else if(pullForm != null){
-         console.log('data url :'+apiUrl_poll_id)
          ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl_poll_id, pollSelect));
       }else{
          ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, function (data) {
-            console.log('data url :'+apiUrl)
+            
             if(data[0] != '<'){ 
-               console.log('data type')
-               console.log(data[0])
-               console.log(data)
                var userObject = JSON.parse(data);
             }else{
                var userObject = data;
             }
+            
             if(userObject != undefined){
-               //myLogin(navbarRight);
                setMenu(userObject['userData'],apiUrl)
             }else{
                myLogout(navbarRight,apiUrl);

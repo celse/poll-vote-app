@@ -21,9 +21,7 @@ var userSchema = new Schema({
 	    password : String,
 	    polls : [{ type: Schema.Types.ObjectId, ref : 'Poll'}]
 	},
-   nbrClicks: {
-      clicks: Number
-   }
+   
 });
 
 //generating a hash
